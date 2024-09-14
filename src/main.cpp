@@ -1,21 +1,29 @@
-#include <SFML/Window.hpp>
+#include "app.hpp"
 
-int main()
+#include <iostream>
+
+
+using namespace bg;
+int main(int argc, char** argv)
 {
-    sf::Window window(sf::VideoMode(800, 600), "My window");
+    int result = 0;
 
-    // run the program as long as the window is open
-    while (window.isOpen())
-    {
-        // check all the window's events that were triggered since the last iteration of the loop
-        sf::Event event;
-        while (window.pollEvent(event))
-        {
-            // "close requested" event: we close the window
-            if (event.type == sf::Event::Closed)
-                window.close();
-        }
+    //creating the application
+    result = Application::Init(argc, argv);
+    if (result) {
+        //can't create the application
+        return result;
     }
 
-    return 0;
+    //get pointer on application
+    Application* app = Application::GetInstance();
+    
+    //start application worcking
+    result = app->Run();
+
+    //destroy the application
+    app->CleanUp();
+
+    //exit
+    return result;
 }
