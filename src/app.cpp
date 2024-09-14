@@ -1,7 +1,5 @@
 #include "app.hpp"
-
-#include <iostream>
-
+#include "project.hpp"
 using namespace bg;
 
 Application* Application::self = nullptr;
@@ -9,14 +7,14 @@ int exit_code = 0;
 
 Application* Application::GetInstance() {
 	if (self == nullptr) {
-		// application was not initialise
+		ELOG("Application called before initialisation");
 	}
 	return self;
 }
 
 int Application::Init(int argc, char** argv) {
 	if (self != nullptr) {
-		// application was initialised earlier
+		ELOG("Application double initialisation");
 		return 1;
 	}
 	self = new Application(argc, argv);
@@ -41,8 +39,7 @@ Application::~Application() {
 
 int Application::Run() {
 	int lifetime = 0;
-	while (lifetime++ < 100) {
-		std::cout << lifetime << std::endl;
+	while (lifetime++ < 10) {
 	}
 	return 0;
 }

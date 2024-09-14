@@ -8,9 +8,11 @@ option(BUILD_SHARED_LIBS "Build shared libraries" OFF)
 
 
 add_executable(${PROJECT_NAME}
-				src/main.cpp
-				src/app.hpp
-				src/app.cpp
+	src/main.cpp
+	src/app.hpp
+	src/app.cpp
+	src/project.hpp
+	src/project.cpp
 				)
 
 include(FetchContent)
