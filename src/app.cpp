@@ -1,8 +1,12 @@
 #include "app.hpp"
 #include "project.hpp"
 
+#include "SFML/Graphics.hpp"
+
 #include "visual/window.hpp"
 #include "events/event_handler.hpp"
+
+#include <string>
 
 
 using namespace bg;
@@ -88,8 +92,13 @@ void Application::stop() {
 
 int Application::load() {
 
-	TimeStruct::self.time = 1 / 120;
+	Time::self.deltaTime = 1.0 / 120;
 
+	// timer that counts the running time
+	static sf::Clock clock;
+	Time::self.time = clock.getElapsedTime().asSeconds();
+
+	// initialize programm components
 	Window::Init();
 	EventHandler::Init();
 
@@ -97,6 +106,7 @@ int Application::load() {
 }
 
 int Application::preUpdate() {
+
 	return 0;
 }
 int Application::update() {
@@ -106,6 +116,13 @@ int Application::update() {
 	return 0;
 }
 int Application::postUpdate() {
+
+	static sf::Clock clock;
+	clock.restart();
+	Time::self.frameTime = clock.getElapsedTime().asSeconds();
+
+	Window::GetInstance()->setTitle(std::to_string( Time::self.frameTime ));
+
 	return 0;
 }
 int Application::cleanup() {

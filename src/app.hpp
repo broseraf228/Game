@@ -35,10 +35,5 @@ namespace bg {
 		int update();
 		int postUpdate();
 		int cleanup();
-
-	private:
-
-		//graphics worcking class
-		Window* m_window = nullptr;
 	};
 }

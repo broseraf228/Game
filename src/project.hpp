@@ -44,10 +44,10 @@ typedef double real64;
 // TIME
 ////////////////////////////////////////////////////////////////////////
 
-class TimeStruct
+class Time
 {
 public:
-	static TimeStruct self;
+	static Time self;
 
 	double time = 0.0f;     // Time in seconds since the application started
 	float deltaTime = 0.0f; // Fixed update time step (use this for calculations)
