@@ -1,8 +1,14 @@
 #include "app.hpp"
 #include "project.hpp"
+
+#include "visual/window.hpp"
+#include "events/event_handler.hpp"
+
+
 using namespace bg;
 
 Application* Application::self = nullptr;
+bool Application::isRun = false;
 int exit_code = 0;
 
 Application* Application::GetInstance() {
@@ -38,8 +44,73 @@ Application::~Application() {
 }
 
 int Application::Run() {
-	int lifetime = 0;
-	while (lifetime++ < 10) {
+	// store exit code here
+	int result = 0;
+
+	// load function (load the textures, sounds and other prepare things)
+	result = load();
+	if (result) {
+		ELOG("application load fail | exit code " << result);
 	}
+
+	// game loop
+	isRun = true;
+	while (isRun) { 
+
+		if (preUpdate()) {
+			// error on pre update phase
+			ELOG("application pre update fail");
+		}
+		if (update()) {
+			// error on pre update phase
+			ELOG("application pre update fail");
+		}
+		if (postUpdate()) {
+			// error on pre update phase
+			ELOG("application pre update fail");
+		}
+	}
+
+	// cleanup game
+	cleanup();
+
+	return result;
+}
+
+void Application::stop() {
+	isRun = false;
+}
+
+
+////////////////////////////////////////////////////////////////////////
+// WRITE CODE BOTTOM
+////////////////////////////////////////////////////////////////////////
+
+int Application::load() {
+
+	TimeStruct::self.time = 1 / 120;
+
+	Window::Init();
+	EventHandler::Init();
+
+	return 0;
+}
+
+int Application::preUpdate() {
+	return 0;
+}
+int Application::update() {
+
+	EventHandler::handleEvents();
+
+	return 0;
+}
+int Application::postUpdate() {
+	return 0;
+}
+int Application::cleanup() {
+
+	Window::Destroy();
+
 	return 0;
 }

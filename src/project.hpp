@@ -1,5 +1,7 @@
 #pragma once
 
+#include <iostream>
+
 ////////////////////////////////////////////////////////////////////////
 // USEFUL MACROS
 ////////////////////////////////////////////////////////////////////////
@@ -42,15 +44,15 @@ typedef double real64;
 // TIME
 ////////////////////////////////////////////////////////////////////////
 
-struct TimeStruct
+class TimeStruct
 {
+public:
+	static TimeStruct self;
+
 	double time = 0.0f;     // Time in seconds since the application started
 	float deltaTime = 0.0f; // Fixed update time step (use this for calculations)
 	float frameTime = 0.0f; // Time spend during the last frame (don't use this)
 };
-
-// Global object to access the time
-extern TimeStruct Time;
 
 
 ////////////////////////////////////////////////////////////////////////
@@ -62,10 +64,8 @@ extern TimeStruct Time;
 
 enum { LOG_TYPE_INFO, LOG_TYPE_WARN, LOG_TYPE_ERROR, LOG_TYPE_DEBUG };
 
-void log(const char file[], int line, int type, const char* message);
-
-#define LOG( m )  log( __FILE__, __LINE__, LOG_TYPE_INFO, m)
-#define WLOG( m ) log( __FILE__, __LINE__, LOG_TYPE_WARN, m)
-#define ELOG( m ) log( __FILE__, __LINE__, LOG_TYPE_ERROR, m)
-#define DLOG( m ) log( __FILE__, __LINE__, LOG_TYPE_DEBUG, m)
+#define LOG( m )  std::cout << __FILE__ << " -> line " << __LINE__ << " - " << LOG_TYPE_INFO << " - " << m << '\n'
+#define WLOG( m ) std::cout << __FILE__ << " -> line " << __LINE__ << " - " << LOG_TYPE_WARN << " - " << m << '\n'
+#define ELOG( m ) std::cout << __FILE__ << " -> line " << __LINE__ << " - " << LOG_TYPE_ERROR << " - " << m << '\n'
+#define DLOG( m ) std::cout << __FILE__ << " -> line " << __LINE__ << " - " << LOG_TYPE_DEBUG << " - " << m << '\n'
 

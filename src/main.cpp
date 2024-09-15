@@ -9,21 +9,21 @@ int main(int argc, char** argv)
     //creating the application
     result = Application::Init(argc, argv);
     if (result) {
-        ELOG("can't initialise the Application\n");
+        ELOG("can't initialise the Application");
         return result;
     }
-    LOG("Application was initialised\n");
+    DLOG("Application was initialised");
 
     //get pointer on application
     Application* app = Application::GetInstance();
     
     //start application worcking
-    LOG("start the Application\n");
+    DLOG("start the Application");
     result = app->Run();
 
     //destroy the application
     app->CleanUp();
-    LOG("Application was stopped\n");
+    DLOG("stop the Application");
 
     //exit
     return result;

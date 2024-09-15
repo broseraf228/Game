@@ -13,6 +13,12 @@ add_executable(${PROJECT_NAME}
 	src/app.cpp
 	src/project.hpp
 	src/project.cpp
+	src/phis/phis.hpp
+	src/phis/phis.cpp
+	src/visual/window.hpp
+	src/visual/window.cpp
+	src/events/event_handler.hpp
+	src/events/event_handler.cpp
 				)
 
 include(FetchContent)

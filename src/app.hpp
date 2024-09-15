@@ -2,7 +2,10 @@
 
 namespace bg {
 
+	class Window;
+
 	class Application {
+
 	public:
 		// Singleton
 		Application(Application& other) = delete;
@@ -14,6 +17,8 @@ namespace bg {
 		int Run();
 		static void CleanUp();
 
+		static void stop();
+
 	private:
 		// Singleton instance ptr
 		static Application* self;
@@ -21,5 +26,19 @@ namespace bg {
 		// Constructor and destructor
 		Application(int argc, char** argv);
 		~Application();
+
+		//application running status
+		static bool isRun;
+		//private lifetime methods
+		int load();
+		int preUpdate();
+		int update();
+		int postUpdate();
+		int cleanup();
+
+	private:
+
+		//graphics worcking class
+		Window* m_window = nullptr;
 	};
 }
