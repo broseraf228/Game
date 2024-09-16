@@ -19,6 +19,14 @@ add_executable(${PROJECT_NAME}
 	src/visual/window.cpp
 	src/events/event_handler.hpp
 	src/events/event_handler.cpp
+	src/visual/screen.hpp
+	src/visual/screen.cpp
+	src/game/gameObject.hpp
+	src/game/gameObject.cpp
+	src/math/math.hpp
+	src/math/math.cpp
+	src/game/game.hpp
+	src/game/game.cpp
 				)
 
 include(FetchContent)

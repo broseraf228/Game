@@ -4,7 +4,10 @@
 #include "SFML/Graphics.hpp"
 
 #include "visual/window.hpp"
+#include "visual/screen.hpp"
 #include "events/event_handler.hpp"
+#include "game/game.hpp"
+#include "game/gameObject.hpp"
 
 #include <string>
 
@@ -94,24 +97,40 @@ int Application::load() {
 
 	Time::self.deltaTime = 1.0 / 120;
 
-	// timer that counts the running time
-	static sf::Clock clock;
-	Time::self.time = clock.getElapsedTime().asSeconds();
-
 	// initialize programm components
+	Core::Init();
+
 	Window::Init();
+	Screen::Init();
 	EventHandler::Init();
+
+	// prepare game
+	Core::GetInstance()->load();
 
 	return 0;
 }
 
 int Application::preUpdate() {
 
+	// timer that counts the running time
+	static sf::Clock clock;
+	Time::self.time = clock.getElapsedTime().asSeconds();
+
 	return 0;
 }
 int Application::update() {
 
+	// draw objects
+	Screen::GetInstance()->drawObjects(Core::GetInstance()->getGameObjects());
+	
+	// handle events
 	EventHandler::handleEvents();
+
+	// update the game
+	Core::GetInstance()->update();
+
+	// clear the screen
+	Screen::GetInstance()->clear();
 
 	return 0;
 }
@@ -127,7 +146,9 @@ int Application::postUpdate() {
 }
 int Application::cleanup() {
 
+	Screen::Destroy();
 	Window::Destroy();
+	Core::Destroy();
 
 	return 0;
 }
